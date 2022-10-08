@@ -9,13 +9,13 @@ app.get('/', function(_, res) {
 });
 
 const server = require('ws').Server;
-const wss = new server({ port:4000 });
+const wsServer = new server({ port:4000 });
 
-wss.on('connection',function(ws) {
+wsServer.on('connection',function(ws) {
   ws.on('message',function(message) {
     console.log(`received: ${message}`);
-    wss.clients.forEach(function(client) {
-      const json = `{ "sent_at": ${ new Date().toJSON() }, "message": ${ message } }`;
+    wsServer.clients.forEach(function(client) {
+      const json = `{ "sent_at": ${ new Date() }, "message": ${ message } }`;
       console.log(`sent: ${json}`);
       client.send(json);
     });

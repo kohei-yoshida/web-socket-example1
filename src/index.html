@@ -14,21 +14,21 @@
   <hr />
   <div id="messages"></div>
   <script>
-      const sock = new WebSocket('ws://localhost:4000');
+      const ws = new WebSocket('ws://localhost:4000');
 
-      sock.addEventListener('message',function(e) {
+      ws.addEventListener('message', (e) => {
         const messages = document.getElementById('messages');
         const newItem = document.createElement("p");
         newItem.innerText = e.data;
         messages.append(newItem);
       });
 
-      document.addEventListener('DOMContentLoaded',function(e) {
-        document.getElementById('sender').addEventListener('click',function(e) {
+      document.addEventListener('DOMContentLoaded', (e) => {
+        document.getElementById('sender').addEventListener('click', (e) => {
           const value = document.getElementById('editor').value;
           if(!value) return;
 
-          sock.send(value);
+          ws.send(value);
           document.getElementById('editor').value = '';
         });
       });
