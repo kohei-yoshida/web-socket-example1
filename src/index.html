@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>web-socket-demo</title>
+</head>
+<body>
+  <input type="text" id="editor">  
+  <input type="button" id="sender" value="Send">
+  <h2>Messages</h2>
+  <hr />
+  <div id="messages"></div>
+  <script>
+      const sock = new WebSocket('ws://localhost:4000');
+
+      sock.addEventListener('message',function(e) {
+        const messages = document.getElementById('messages');
+        const newItem = document.createElement("p");
+        newItem.innerText = e.data;
+        messages.append(newItem);
+      });
+
+      document.addEventListener('DOMContentLoaded',function(e) {
+        document.getElementById('sender').addEventListener('click',function(e) {
+          const value = document.getElementById('editor').value;
+          if(!value) return;
+
+          sock.send(value);
+          document.getElementById('editor').value = '';
+        });
+      });
+  </script>
+</body>
+</html>
