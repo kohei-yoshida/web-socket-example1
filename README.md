@@ -8,7 +8,7 @@
 - docker engine: 20.10.17
 - docker compose: 2.10.2
 
-## Direcotry
+## Directory
 
 ```txt
 ./a-frame-demo1
